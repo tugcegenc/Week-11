@@ -6,19 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "serial")
     private long id;
 
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "publication_year", nullable = false)
@@ -28,14 +27,14 @@ public class Book {
     private int stock;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_author_id", referencedColumnName = "author_id")
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_publisher_id", referencedColumnName = "publisher_id")
+    @JoinColumn(name = "publisher_id", referencedColumnName = "id")
     private Publisher publisher;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book" ,cascade = CascadeType.ALL)
     private List<BookBorrowing> bookBorrowingList;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

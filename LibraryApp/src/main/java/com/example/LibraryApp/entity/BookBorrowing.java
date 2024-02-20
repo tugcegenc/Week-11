@@ -6,12 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "book_borrowing")
 public class BookBorrowing {
 
     @Id
@@ -29,7 +28,7 @@ public class BookBorrowing {
     private LocalDate returnDate;
 
     @ManyToOne
-    @JoinColumn(name = "borrow_book_id", referencedColumnName = "book_id")
+    @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 
 }

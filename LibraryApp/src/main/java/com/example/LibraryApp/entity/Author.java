@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "author")
 public class Author {
 
     @Id
@@ -20,16 +20,17 @@ public class Author {
     @Column(name = "id", columnDefinition = "serial")
     private long id;
 
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
-    @Column(name = "country", length = 100, nullable = false)
+    @Column(name = "country", nullable = false)
     private String country;
 
     @OneToMany(mappedBy = "author")
-    private List<Book> booksList;
+    private List<Book> bookList;
 
 }
